@@ -31,7 +31,7 @@ module.exports = {
       // The css-loader interprets @import and url() like import/require() and will resolve them.
       // The sass-loader loads the SASS/SCSS files and compiles them to CSS.
       {
-        test: /\.scss$/,
+        test: /\.(s[ac]|c)ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       // Needed to be able to handle the asset file types.
