@@ -2,7 +2,7 @@ import './styles/main.scss';
 import TestingClass from './modules/TestingClass';
 import astro from './assets/astro.png';
 
-console.log('index.js loaded properly!');
+console.log('index.js loaded properlyy!!');
 const tester = new TestingClass();
 tester.testLogger();
 
