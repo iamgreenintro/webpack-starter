@@ -54,8 +54,9 @@ module.exports = {
     // The content hash changes forcing to reload the newly-named file instead of pulling the same-named cached version.
     filename: '[name].[contenthash].bundle.js',
 
-    // Keep the asset's original source name and extension (so the asset's file name still matches with it's path).
-    assetModuleFilename: '[name][ext]',
+    // Add a directory called `assets` for our asset files being output.
+    // Files will contain the original name with a contenthash followed by the original extension.
+    assetModuleFilename: 'assets/[name].[contenthash][ext]',
 
     // Allow chunks to be loaded on demand (asynchronously).
     // This will load entry points asynchronously as soon as they are needed (runtime).
