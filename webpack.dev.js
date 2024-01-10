@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   // Specify the mode we want to run in:
@@ -32,6 +34,13 @@ module.exports = {
       // We do not need it when using development mode and want to focus on fast builds, generating that extra runtime bundle adds time.
       runtime: false,
     },
+    // Creating a js module for our styles to automatically bundle into a chunk.
+    // We could also import it in our 'main' entry point (index.js) but I prefer to split our styling and javascript.
+    styles: {
+      import: path.resolve(__dirname, 'src/styles/main.scss'),
+      filename: '[name].[contenthash].bundle.js',
+      runtime: false,
+    },
   },
 
   // Our output settings will define how and where webpack generates our bundled files.
@@ -49,9 +58,65 @@ module.exports = {
     assetModuleFilename: '[name][ext]',
 
     // Allow chunks to be loaded on demand (asynchronously).
+    // This will load entry points asynchronously as soon as they are needed (runtime).
+    // Think of a web application with multiple pages/routes which are index points for those pages.
+    // They only get loaded once that page is invoked.
     asyncChunks: true,
 
-    // Clean up the dist folder before generating a new build.
+    // Tells Webpack to check if to be emitted file already exists and has the same content before writing to the output file system.
+    // When set to `true`; Webpack will not write output file if it already exists on the disk.
+    // The issue with setting it to `true` is that it will increase build time since it's first going to compare each file.
+    // For `development` mode I prefer to prioritize speed for productivity.
+    compareBeforeEmit: false,
+
+    // Clean up the dist folder before generating a new build so it doesn't pile up.
     clean: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      filename: 'index.html',
+      template: path.resolve(__dirname, 'src/index.html'),
+    }),
+    // new MiniCssExtractPlugin(),
+  ],
+  module: {
+    rules: [
+      // Rules that are matched and then apply loaders or modify the parser.
+      // For more information: https://webpack.js.org/configuration/module/#rule
+
+      {
+        test: /\.html$/,
+        use: ['html-loader'],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [],
+      },
+
+      // Add loaders for the following file types: ".css", ".scss" and ".sass".
+      // The order in this case is important; "style-loader" must come first, followed by "css-loader".
+      // You could swap out the 'style-loader' for the `MiniCssExtractPlugin.loader` plugin.
+      {
+        test: /\.(css|scss|sass)$/i,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+
+      // Handling image/gif type assets:
+      // Having these image/gif file types without the loader will crash the application.
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+
+      // Handling font type assets:
+      // Having these font file types without the loader will crash the application.
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
+    ],
   },
 };
