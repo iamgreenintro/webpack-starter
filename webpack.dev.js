@@ -72,6 +72,42 @@ module.exports = {
     // Clean up the dist folder before generating a new build so it doesn't pile up.
     clean: true,
   },
+
+  // The `devtool` option controls if and how source maps are generated.
+  // Source maps essentially allow us to debug our code that's been compressed.
+  // https://webpack.js.org/configuration/devtool/#devtool
+  devtool: 'eval-cheap-module-source-map',
+
+  devServer: {
+    // Hosts that are allowed to communicate with the development server.
+    // 'auto' allows 'localhost' 'host' and a webSocketURL by default.
+    allowedHosts: 'auto',
+
+    // Directory to serve from memory:
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
+
+    // Port to run the development server on. Defaults to `8080`.
+    port: 3000,
+
+    // Automatically open the browser on the given port value.
+    open: true,
+
+    // Hot reloading. On = true, off = false.
+    hot: true,
+
+    // Enable gzip compression to save bandwidth.
+    // Read more about gzip compression here: https://betterexplained.com/articles/how-to-optimize-your-site-with-gzip-compression/
+    // You can see if this actually works by checking the response header on one of your chunk files.
+    // It should have `Content-Encoding: gzip`.
+    compress: true,
+
+    // Visiting a non-existing page will result in a 404 error.
+    // We can redirect to the index.html by setting `historyApiFallback` to `true`.
+    // http://localhost:3000/fdsklsdfmsklsdmskl will now still render index.html instead.
+    historyApiFallback: true,
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack App',
