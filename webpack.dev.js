@@ -26,7 +26,7 @@ module.exports = {
       // 1. The [name] stands for 'main' as per the key above that resolves the path to our entry file.
       // 2. The [contenthash] is a changing hash allowing to bypass same-named cached files (which can lead to not seeing latest changes).
       // 3. When compiled will be named "main.5sdefdf100c94fd5efa81f.bundle.js", aside from the content hash changing.
-      filename: '[name].[contenthash].bundle.js',
+      filename: 'js/[name].[contenthash].bundle.js',
 
       // The runtime setting takes two possible values, being:
       // 1. false -> When generating it inline in the entry chunk we specified above.
