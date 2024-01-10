@@ -38,7 +38,7 @@ module.exports = {
     // We could also import it in our 'main' entry point (index.js) but I prefer to split our styling and javascript.
     styles: {
       import: path.resolve(__dirname, 'src/styles/main.scss'),
-      filename: '[name].[contenthash].bundle.js',
+      filename: 'css/[name].[contenthash].bundle.js',
       runtime: false,
     },
   },
