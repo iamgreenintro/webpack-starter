@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   // Specify the mode we want to run in:
@@ -24,8 +23,6 @@ module.exports = {
 
       // The name of the bundled output file where:
       // 1. The [name] stands for 'main' as per the key above that resolves the path to our entry file.
-      // 2. The [contenthash] is a changing hash allowing to bypass same-named cached files (which can lead to not seeing latest changes).
-      // 3. When compiled will be named "main.5sdefdf100c94fd5efa81f.bundle.js", aside from the content hash changing.
       filename: 'js/[name].bundle.js',
 
       // The runtime setting takes two possible values, being:
@@ -50,8 +47,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
 
     // Name of our bundled output file where [name] represents our entry point name.
-    // In this example: main.5sdefdf100c94fd5efa81f.bundle.js
-    // The content hash changes forcing to reload the newly-named file instead of pulling the same-named cached version.
     filename: '[name].bundle.js',
 
     // Add a directory called `assets` for our asset files being output.
@@ -136,13 +131,11 @@ module.exports = {
       filename: 'index.html',
       template: path.resolve(__dirname, 'src/index.html'),
     }),
-    // new MiniCssExtractPlugin(),
   ],
   module: {
     rules: [
       // Rules that are matched and then apply loaders or modify the parser.
       // For more information: https://webpack.js.org/configuration/module/#rule
-
       {
         test: /\.html$/,
         use: ['html-loader'],

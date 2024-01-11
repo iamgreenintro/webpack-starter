@@ -1,19 +1,17 @@
 # A Webpack 5 Starter Project (Vanilla JS)
 
-### Why?
-
-There's many webpack starter projects out there. Many are out of date or lack configuration. To save time it would be nice to have a ready-to-go and up to date starter project.
-
 ### Description:
 
-An easy customizable webpack starter project that works out of the box. Each webpack configuration setting comes with elaborate comments allowing you to understand and customize the config files yourself!
+An extremely basic Webpack 5 starter project setup in Vanilla JS.
+This is by no means advanced but can be configured to fit your own needs instead.
+The goal was to be able to create a new project without much configuration needed so I could focus on the fun part: **coding**!
 
 ## Features
 
 - **Stylesheets have their own entry point.** No need to import it into your app's main entry point via the source code.
 - **Development server** configured for optimal speed.
 - Webpack configuration for `production` and `development` out of the box.
-- Extensive comments in the configuration files for understanding and configuring the project yourself.
+- Extensive comments in the configuration file for understanding and configuring the project yourself.
 
 ### Documentation:
 
