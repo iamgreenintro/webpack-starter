@@ -70,7 +70,7 @@ module.exports = {
     // For `development` mode I prefer to prioritize speed for productivity.
     compareBeforeEmit: false,
 
-    // Clean up the dist folder before generating a new build so it doesn't pile up.
+    // Clean up the output folder before generating a new build so it doesn't pile up.
     clean: true,
   },
 
@@ -79,6 +79,9 @@ module.exports = {
   // https://webpack.js.org/configuration/devtool/#devtool
   devtool: 'eval-cheap-module-source-map',
 
+  // Our development server settings:
+  // This is the webpack-dev-server and is used instead of the webpack `--watch` flag.
+  // The upside of using the webpack-dev-server is it auto-refreshing the browser on changes (live reloading).
   devServer: {
     // Hosts that are allowed to communicate with the development server.
     // 'auto' allows 'localhost' 'host' and a webSocketURL by default.
@@ -89,13 +92,18 @@ module.exports = {
       directory: path.resolve(__dirname, 'dist'),
     },
 
+    // If we're going to use multiple entry points on a single HTML page, optimization.runtimeChunk: 'single' is needed too.
+    // Otherwise we could get into trouble described here: https://bundlers.tooling.report/code-splitting/multi-entry/#webpack
+    // Prevents creating multiple instances of the same module at runtime.
+    runtimeChunk: 'single',
+
     // Port to run the development server on. Defaults to `8080`.
     port: 3000,
 
-    // Automatically open the browser on the given port value.
+    // Automatically open the browser on the given port value (same as running webpack serve with `--open` flag).
     open: true,
 
-    // Hot reloading. On = true, off = false.
+    // Hot Module Replacement. On = true, off = false. It's set to true by default.
     hot: true,
 
     // Enable gzip compression to save bandwidth.
@@ -111,7 +119,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Webpack App',
+      title: 'Webpack Starter Project',
       filename: 'index.html',
       template: path.resolve(__dirname, 'src/index.html'),
     }),
