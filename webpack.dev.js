@@ -97,6 +97,17 @@ module.exports = {
     // Prevents creating multiple instances of the same module at runtime.
     runtimeChunk: 'single',
 
+    splitChunks: {
+      // Separate the third party dependencies into chunks for caching:
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+
     // Port to run the development server on. Defaults to `8080`.
     port: 3000,
 
