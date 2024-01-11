@@ -26,7 +26,7 @@ module.exports = {
       // 1. The [name] stands for 'main' as per the key above that resolves the path to our entry file.
       // 2. The [contenthash] is a changing hash allowing to bypass same-named cached files (which can lead to not seeing latest changes).
       // 3. When compiled will be named "main.5sdefdf100c94fd5efa81f.bundle.js", aside from the content hash changing.
-      filename: 'js/[name].[contenthash].bundle.js',
+      filename: 'js/[name].bundle.js',
 
       // The runtime setting takes two possible values, being:
       // 1. false -> When generating it inline in the entry chunk we specified above.
@@ -38,7 +38,7 @@ module.exports = {
     // We could also import it in our 'main' entry point (index.js) but I prefer to split our styling and javascript.
     styles: {
       import: path.resolve(__dirname, 'src/styles/main.scss'),
-      filename: 'css/[name].[contenthash].bundle.js',
+      filename: 'css/[name].bundle.js',
       runtime: false,
     },
   },
@@ -52,11 +52,11 @@ module.exports = {
     // Name of our bundled output file where [name] represents our entry point name.
     // In this example: main.5sdefdf100c94fd5efa81f.bundle.js
     // The content hash changes forcing to reload the newly-named file instead of pulling the same-named cached version.
-    filename: '[name].[contenthash].bundle.js',
+    filename: '[name].bundle.js',
 
     // Add a directory called `assets` for our asset files being output.
     // Files will contain the original name with a contenthash followed by the original extension.
-    assetModuleFilename: 'assets/[name].[contenthash][ext]',
+    assetModuleFilename: 'assets/[name][ext]',
 
     // Allow chunks to be loaded on demand (asynchronously).
     // This will load entry points asynchronously as soon as they are needed (runtime).
