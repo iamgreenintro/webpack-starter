@@ -92,22 +92,6 @@ module.exports = {
       directory: path.resolve(__dirname, 'dist'),
     },
 
-    // If we're going to use multiple entry points on a single HTML page, optimization.runtimeChunk: 'single' is needed too.
-    // Otherwise we could get into trouble described here: https://bundlers.tooling.report/code-splitting/multi-entry/#webpack
-    // Prevents creating multiple instances of the same module at runtime.
-    runtimeChunk: 'single',
-
-    splitChunks: {
-      // Separate the third party dependencies into chunks for caching:
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
-
     // Port to run the development server on. Defaults to `8080`.
     port: 3000,
 
@@ -128,6 +112,24 @@ module.exports = {
     // http://localhost:3000/fdsklsdfmsklsdmskl will now still render index.html instead.
     historyApiFallback: true,
   },
+
+  optimization: {
+    // If we're going to use multiple entry points on a single HTML page, optimization.runtimeChunk: 'single' is needed too.
+    // Otherwise we could get into trouble described here: https://bundlers.tooling.report/code-splitting/multi-entry/#webpack
+    // Prevents creating multiple instances of the same module at runtime.
+    runtimeChunk: 'single',
+
+    // Separate the third party dependencies into chunks for caching:
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Webpack Starter Project',
@@ -145,10 +147,11 @@ module.exports = {
         test: /\.html$/,
         use: ['html-loader'],
       },
+
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [],
+        use: ['babel-loader'],
       },
 
       // Add loaders for the following file types: ".css", ".scss" and ".sass".
