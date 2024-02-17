@@ -5,7 +5,7 @@ module.exports = {
   mode: 'production',
   entry: {
     main: {
-      import: path.resolve(__dirname, 'src/index.js'),
+      import: path.resolve(__dirname, 'src/index.ts'),
       filename: 'js/[name].[contenthash].bundle.js',
       runtime: false,
     },
@@ -50,6 +50,11 @@ module.exports = {
         use: ['html-loader'],
       },
       {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
@@ -68,5 +73,8 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };

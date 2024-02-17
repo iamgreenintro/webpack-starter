@@ -19,7 +19,8 @@ module.exports = {
       // 1. You have this webpack configuration file in the root of your project's directory.
       // 2. You have a directory named 'src' inside of the root of your project's directory.
       // 3. Your entry script is inside of the above mentioned 'src' directory and is called 'index.js'.
-      import: path.resolve(__dirname, 'src/index.js'),
+      // NOTE: This can be either index.ts or index.js, depending on if you're using TypeScript or not.
+      import: path.resolve(__dirname, 'src/index.ts'),
 
       // The name of the bundled output file where:
       // 1. The [name] stands for 'main' as per the key above that resolves the path to our entry file.
@@ -141,6 +142,13 @@ module.exports = {
         use: ['html-loader'],
       },
 
+      // Add a TypeScript loader to support ts -> js.
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -170,5 +178,8 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };
